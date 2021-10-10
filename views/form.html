@@ -1,8 +1,8 @@
 {% extends "views/base.html" %}
 
 {% block content %}
-{% if message %}
-    {% if message_type == 'success' %}
+
+{% if message_type == 'success' %}
         <div class="alert alert-success">
     {% elif message_type == 'danger' %}
         <div class="alert alert-danger">
@@ -14,7 +14,7 @@
             <a href='/su/{{ message_link }}'>Скопируйте/сохраните её</a>
     {% endif %}
     </div>
-{% endif %}
+
 <form method="post">
     <div class="form-group">
         <label for="url">url</label>

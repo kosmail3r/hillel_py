@@ -26,7 +26,7 @@ DATABASES = {
 }
 
 FORM_MESSAGES = {
-    'info': 'Введите в поле ниже адрес начинающийся с http:// <b>/</b> https:// <b>/</b> ftp://',
+    'info': 'Введите в поле ниже адрес начинающийся с http:// или https:// или ftp://',
     'danger': 'Не удалось создать короткую ссылку для адреса {url}',
     'success': 'Ссылка успешно создана!'
 }
@@ -72,7 +72,7 @@ def find_resource_by_hash(url_hash):
 def url_shortener(request):
     if request.method == 'GET':
         message_type = 'info'
-        data_for_view = {'message': True, 'message_type': message_type, 'message_text': FORM_MESSAGES[message_type]}
+        data_for_view = {'message_type': message_type, 'message_text': FORM_MESSAGES[message_type]}
 
     elif request.method == 'POST':
         given_url = request.POST.get('url', '')
@@ -80,7 +80,6 @@ def url_shortener(request):
             shortcut = get_short_url(given_url)
             message_type = 'success'
             data_for_view = {
-                'message': True,
                 'message_type': message_type,
                 'message_text': FORM_MESSAGES[message_type],
                 'message_link': shortcut
@@ -89,7 +88,6 @@ def url_shortener(request):
         else:
             message_type = 'danger'
             data_for_view = {
-                'message': True,
                 'message_type': message_type,
                 'message_text': FORM_MESSAGES[message_type].format(url=given_url)
             }
