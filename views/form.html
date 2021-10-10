@@ -1,0 +1,26 @@
+{% extends "views/base.html" %}
+
+{% block content %}
+{% if message %}
+    {% if message_type == 'success' %}
+        <div class="alert alert-success">
+    {% elif message_type == 'danger' %}
+        <div class="alert alert-danger">
+    {% elif message_type == 'info' %}
+        <div class="alert alert-info">
+    {% endif %}
+        {{ message_text }}
+    {% if message_link %}
+            <a href='/su/{{ message_link }}'>Скопируйте/сохраните её</a>
+    {% endif %}
+    </div>
+{% endif %}
+<form method="post">
+    <div class="form-group">
+        <label for="url">url</label>
+        <input type="text" class="form-control" id="url" name="url">
+    </div>
+
+    <button type="submit" class="btn btn-default">Get short url</button>
+</form>
+{% endblock %}
