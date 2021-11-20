@@ -89,6 +89,16 @@ def post_detail(request, pk):
 
     return render(request, 'blog/post_detail.html', context)
 
+def post_delete(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.method == 'POST':
+        if request.POST.get('confirmation', False):
+            Comment.objects.all().filter(post=post).delete()
+            post.delete()
+            return HttpResponseRedirect(reverse('user_detail', args=(post.author.id,)))
+    else:
+        context = {'post': post}
+        return render(request, 'blog/post_delete.html', context)
 
 def user_detail(request, pk):
     user = get_object_or_404(User, pk=pk, is_staff=False)

@@ -1,0 +1,16 @@
+{% extends "main.html" %}
+
+{% block content %}
+
+<p>Please confirm that you really want to delete post with title</p>
+<h3>{{ post.title }}</h3>
+<p>All comments for this post will be also deleted!</p>
+
+<form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="confirmation" value="1">
+    <button type="submit" class="btn btn-success">Confirm</button>
+</form>
+
+{% endblock %}
+
