@@ -51,8 +51,9 @@ class PostCreate(LoginRequiredMixin, generic.CreateView):
 
     def form_valid(self, form):
         post = form.save(commit=False)
+        slug_raw = post.title + '_' + str(self.request.user.id)
         post.author = self.request.user
-        post.slug = slugify(post.title)
+        post.slug = slugify(slug_raw)
         post.save()
         self.object = post
         return HttpResponseRedirect(self.get_success_url())
