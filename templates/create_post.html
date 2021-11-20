@@ -5,6 +5,7 @@
     {% if request.user.is_authenticated %}
         <li class="active"><a href="{% url 'post_create' %}">Create new post</a></li>
         <li><a href="{% url 'user_detail' request.user.id %}">Profile</a></li>
+        <li><a href="{% url 'profile' %}">Update profile</a></li>
         <li><a href="{% url 'logout' %}">Log-out</a></li>
     {% else %}
         <li><a href="{% url 'registration' %}">Registration</a></li>

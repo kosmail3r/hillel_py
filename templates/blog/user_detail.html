@@ -5,6 +5,7 @@
     {% if request.user.is_authenticated %}
         <li><a href="{% url 'post_create' %}">Create new post</a></li>
         <li class="active"><a href="{% url 'user_detail' request.user.id %}">Profile</a></li>
+        <li><a href="{% url 'profile' %}">Update profile</a></li>
         <li><a href="{% url 'logout' %}">Log-out</a></li>
     {% else %}
         <li><a href="{% url 'registration' %}">Registration</a></li>
@@ -13,14 +14,18 @@
 {% endblock %}
 
 {% block content %}
+
 <h2>User info: </h2>
-<h5>Username: {{ obj.username }}</h5>
-{% if obj.first_name and obj.last_name %}
-<h5>First name: {{ obj.first_name }}</h5>
-<h5>Last name: {{ obj.last_name }}</h5>
+<h5>Username: {{ user.username }}</h5>
+
+{% if user.first_name and user.last_name %}
+    <h5>First name: {{ user.first_name }}</h5>
+    <h5>Last name: {{ user.last_name }}</h5>
 {% endif %}
-<h5>Email: {{ obj.email }}</h5>
+
+<h5>Email: {{ user.email }}</h5>
 <hr>
+
 <h2>User's posts:</h2>
 <ul>
 {% for post in page_obj %}
