@@ -22,7 +22,7 @@
     <div>
         {% for post in page_obj %}
           <hr>
-          <h2><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h2>
+          <h2><a href="{% url 'post_detail' post.slug %}">{{ post.title }}</a></h2>
           <h5>
               <span class="glyphicon glyphicon-time"></span>
               Post by <a href="{% url 'user_detail' post.author.id %}" >{{ post.author }}</a> at {{ post.published_date }}

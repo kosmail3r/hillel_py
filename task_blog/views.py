@@ -67,8 +67,8 @@ class PostList(generic.ListView):
         return Post.objects.all().filter(posted=True).order_by('-id')
 
 
-def post_detail(request, pk):
-    post = get_object_or_404(Post, pk=pk, posted=True)
+def post_detail(request, slug):
+    post = get_object_or_404(Post, slug=slug, posted=True)
     comments = Comment.objects.all().filter(post=post).order_by('-id')
 
     if request.method == 'POST':
