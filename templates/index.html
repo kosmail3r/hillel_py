@@ -1,0 +1,12 @@
+{% extends 'main.html' %}
+
+{% block title %}Blog{% endblock %}
+
+{% block side-menu %}
+    <h1>You are on the home page!</h1>
+    <li class="active"><a href="/blog">Main page</a></li>
+    <li><a href="{% url 'post_list' %}">Blog's posts</a></li>
+    <li><a href="{% url 'registration' %}">Registration</a></li>
+    <li><a href="{% url 'login' %}">Login</a></li>
+    <li><a href="{% url 'logout' %}">Log-out</a></li>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "main.html" %}
+
+{% block content %}
+
+<h3>Title: {{ post.title }}</h3>
+
+<h5>Description: {{ post.full_description }}</h5>
+
+<h5>Author: <a href="{% url 'user_detail' post.author.id %}" >{{ post.author }}</a></h5>
+<hr>
+
+<h4>Leave a Comment:</h4>
+<form method="post">
+        {% csrf_token %}
+        <table>
+          {{ form.as_table }}
+        </table>
+        <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+      <br><br>
+
+
+<h3>Comments</h3>
+
+    {% for comment in comments %}
+        <h6>User name:{{ comment.username }}</h6>
+        <h6>Comment: {{ comment.text }}</h6>
+    {% endfor %}
+
+{% endblock %}

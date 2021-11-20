@@ -1,0 +1,25 @@
+{% extends "main.html" %}
+
+{% block side-menu %}
+    <li><a href="/blog">Main page</a></li>
+    <li><a href="{% url 'post_list' %}">Blog's posts</a></li>
+    <li class="active"><a href="{% url 'registration' %}">Registration</a></li>
+    <li><a href="{% url 'login' %}">Login</a></li>
+    <li><a href="#section3">Log-out</a></li>
+{% endblock %}
+
+{% block content %}
+<div class="panel panel-default">
+  <div class="panel-heading">Fill all fields for registration</div>
+  <div class="panel-body">
+    <form method="POST" class="form-group">
+      {% csrf_token %}
+      <table>
+        {{ form.as_table }}
+      </table>
+      <button type="submit" class="btn btn-success">Register</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
