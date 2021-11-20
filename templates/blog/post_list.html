@@ -16,26 +16,23 @@
 
 {% block content %}
 
-        <div>
-            <h1>List of posts:</h1>
-        </div>
-        <table>
-
-            {% for post in page_obj %}
-              <h4><small>RECENT POSTS</small></h4>
-              <hr>
-              <h2><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h2>
-              <h5>
-                  <span class="glyphicon glyphicon-time"></span>
-                  Post by <a href="{% url 'user_detail' post.author.id %}" >{{ post.author }}</a>.
-              </h5>
-              <p>{{ post.brief_description }}</p>
-              <br><br>
-
-            {% empty %}
+    <div class="container">
+        <h1>List of posts:</h1>
+    </div>
+    <div>
+        {% for post in page_obj %}
+          <hr>
+          <h2><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h2>
+          <h5>
+              <span class="glyphicon glyphicon-time"></span>
+              Post by <a href="{% url 'user_detail' post.author.id %}" >{{ post.author }}</a> at {{ post.published_date }}
+          </h5>
+          <p>{{ post.brief_description }}</p>
+          <br><br>
+        {% empty %}
             <p>No available posts found</p>
-            {% endfor %}
-        </table>
+        {% endfor %}
+    </div>
 
 <div class="pagination">
     <span class="step-links">

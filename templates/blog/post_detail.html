@@ -18,7 +18,7 @@
 
 <h5>Description: {{ post.full_description }}</h5>
 
-<h5>Author: <a href="{% url 'user_detail' post.author.id %}" >{{ post.author }}</a></h5>
+<h5>Author: <a href="{% url 'user_detail' post.author.id %}" >{{ post.author }}</a></h5> Published at {{ post.published_date }}
 <hr>
 
 <h4>Leave a Comment:</h4>
@@ -31,12 +31,15 @@
 </form>
 <br><br>
 
-
 <h3>Comments</h3>
-
     {% for comment in comments %}
-        <h6>User name:{{ comment.username }}</h6>
-        <h6>Comment: {{ comment.text }}</h6>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h6>User name:{{ comment.username }}</h6>
+                <h6>Comment: {{ comment.text }}</h6>
+            </div>
+        </div>
+    {% empty %}
+        <p>No comments yet</p>
     {% endfor %}
-
 {% endblock %}

@@ -64,12 +64,12 @@ class PostList(generic.ListView):
     template_name = 'blog/post_list.html'
 
     def get_queryset(self):
-        return Post.objects.all().filter(posted=True)
+        return Post.objects.all().filter(posted=True).order_by('-id')
 
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk, posted=True)
-    comments = Comment.objects.all().filter(post=post)
+    comments = Comment.objects.all().filter(post=post).order_by('-id')
 
     if request.method == 'POST':
         form = CommentForm(request.POST)

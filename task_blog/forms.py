@@ -15,6 +15,10 @@ class RegisterForm(UserCreationForm):
 
 
 class CommentForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(CommentForm, self).__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs['readonly'] = True
+
     class Meta:
         model = Comment
         fields = ['username', 'text']
