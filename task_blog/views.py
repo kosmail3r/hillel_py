@@ -15,7 +15,7 @@ User = get_user_model()
 class RegisterFormView(generic.FormView):
     template_name = 'registration/register.html'
     form_class = RegisterForm
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('post_list')
 
     def form_valid(self, form):
         form.save()
@@ -32,7 +32,7 @@ class UserEditView(LoginRequiredMixin, generic.UpdateView):
     model = User
     fields = ["username", "first_name", "last_name", "email"]
     template_name = 'registration/update_user.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('post_list')
 
     def get_object(self, queryset=None):
         user = self.request.user
@@ -89,6 +89,7 @@ def post_detail(request, pk):
 
     return render(request, 'blog/post_detail.html', context)
 
+
 def post_delete(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == 'POST':
@@ -99,6 +100,7 @@ def post_delete(request, pk):
     else:
         context = {'post': post}
         return render(request, 'blog/post_delete.html', context)
+
 
 def user_detail(request, pk):
     user = get_object_or_404(User, pk=pk, is_staff=False)

@@ -1,5 +1,17 @@
 {% extends "main.html" %}
 
+{% block side-menu %}
+    <li><a href="{% url 'post_list' %}">Blog's posts</a></li>
+    {% if request.user.is_authenticated %}
+        <li><a href="{% url 'post_create' %}">Create new post</a></li>
+        <li class="active"><a href="{% url 'user_detail' request.user.id %}">Profile</a></li>
+        <li><a href="{% url 'logout' %}">Log-out</a></li>
+    {% else %}
+        <li><a href="{% url 'registration' %}">Registration</a></li>
+        <li><a href="{% url 'login' %}">Login</a></li>
+    {% endif %}
+{% endblock %}
+
 {% block content %}
 <h2>User info: </h2>
 <h5>Username: {{ obj.username }}</h5>
