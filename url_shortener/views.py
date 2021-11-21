@@ -84,6 +84,13 @@ class UrlCreate(LoginRequiredMixin, generic.CreateView):
                     url.redirect_count = 0
                     url.save()
                     self.object = url
+        else:
+            context = {
+                'form': UrlForm,
+                'message': 'Please provide correct address started from http:// or https:// or ftp://'
+            }
+
+            return render(self.request, 'create_shortcut.html', context)
 
         return HttpResponseRedirect(reverse_lazy('creation_success', args={shortcut}))
 
