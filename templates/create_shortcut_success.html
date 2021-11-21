@@ -1,0 +1,21 @@
+{% extends "main.html" %}
+
+{% block side-menu %}
+    {% if request.user.is_authenticated %}
+        <li class="active"><a href="{% url 'url_shortener' %}">Create new shortcut</a></li>
+        <li><a href="{% url 'logout' %}">Log-out</a></li>
+    {% else %}
+        <li><a href="{% url 'registration' %}">Registration</a></li>
+        <li><a href="{% url 'login' %}">Login</a></li>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="panel panel-default">
+  <div class="panel-heading">Success! Please copy this url</div>
+  <div class="panel-body">
+    <a href="{% url 'shortcut_for_url' url_shortcut %}">Copy & Save it!</a>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class TaskBlogConfig(AppConfig):
+class UrlShortenerConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'task_blog'
+    name = 'url_shortener'

@@ -1,12 +1,18 @@
 {% extends 'main.html' %}
 
-{% block title %}Blog{% endblock %}
+{% block title %}Url shortener{% endblock %}
 
 {% block side-menu %}
-    <h1>You are on the home page!</h1>
-    <li class="active"><a href="/blog">Main page</a></li>
-    <li><a href="{% url 'post_list' %}">Blog's posts</a></li>
-    <li><a href="{% url 'registration' %}">Registration</a></li>
-    <li><a href="{% url 'login' %}">Login</a></li>
-    <li><a href="{% url 'logout' %}">Log-out</a></li>
+    {% if request.user.is_authenticated %}
+        <li><a href="{% url 'url_shortener' %}">Create new shortcut</a></li>
+        <li><a href="{% url 'logout' %}">Log-out</a></li>
+    {% else %}
+        <li><a href="{% url 'registration' %}">Registration</a></li>
+        <li><a href="{% url 'login' %}">Login</a></li>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <h1>Welcome!</h1>
+    <p>Please register for creating shortcut for url!</p>
 {% endblock %}
