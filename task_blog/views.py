@@ -6,7 +6,7 @@ from django.urls import reverse, reverse_lazy
 from django.utils.text import slugify
 from django.views import generic
 
-from .forms import CommentForm, RegisterForm
+from .forms import CommentForm, RegisterForm, PostForm
 from .models import Comment, Post
 
 User = get_user_model()
@@ -68,6 +68,22 @@ class PostList(generic.ListView):
         return Post.objects.all().filter(posted=True).order_by('-id')
 
 
+def post_edit(request, pk):
+    post = get_object_or_404(Post, pk=pk, author_id=request.user.id)
+
+    if request.method == 'POST':
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('user_detail', args=(request.user.id,)))
+    else:
+        form = PostForm(instance=post)
+
+    context = {'form': form}
+
+    return render(request, 'blog/post_edit.html', context)
+
+
 def post_detail(request, slug):
     post = get_object_or_404(Post, slug=slug, posted=True)
     comments = Comment.objects.all().filter(post=post).order_by('-id')
@@ -80,8 +96,7 @@ def post_detail(request, slug):
             comm.text = form.cleaned_data['text']
             comm.post = post
             comm.save()
-            return HttpResponseRedirect(reverse('post_detail', args=(post.id,)))
-
+            return HttpResponseRedirect(reverse('post_detail', args=(post.slug,)))
     else:
         initial = {'username': request.user.username}
         form = CommentForm(initial=initial)
@@ -104,7 +119,7 @@ def post_delete(request, pk):
 
 
 def user_detail(request, pk):
-    user = get_object_or_404(User, pk=pk, is_staff=False)
+    user = get_object_or_404(User, pk=pk)
     posts = Post.objects.filter(author=user).filter(posted=True)
     self_posts = request.user.username == user.username
 

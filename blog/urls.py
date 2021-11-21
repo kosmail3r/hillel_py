@@ -9,5 +9,4 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/register/', RegisterFormView.as_view(), name='registration'),
     path('accounts/profile/', UserEditView.as_view(), name="profile"),
-
 ]
