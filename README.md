@@ -1,4 +1,4 @@
-# hillel_blog
+# Hillel url-shortener with auth
 1. Install all dependencies
 ```bash
  pip install -r requirements.txt
